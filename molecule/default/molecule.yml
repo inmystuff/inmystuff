@@ -19,7 +19,7 @@ platforms:
     pre_build_image: true
 
   - name: ansible-role-funkwhale-test-centos
-    image: "centos:7"  # Используйте нужную версию CentOS
+    image: "centos:7"
     command: ${MOLECULE_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -27,7 +27,7 @@ platforms:
     pre_build_image: true
 
   - name: ansible-role-funkwhale-test-redos
-    image: "redhat/ubi8"  # Используйте нужную версию RedOS
+    image: "redhat/ubi8"
     command: ${MOLECULE_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
