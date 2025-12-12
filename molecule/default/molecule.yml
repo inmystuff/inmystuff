@@ -1,19 +1,39 @@
 dependency:
   name: galaxy
+
 driver:
   name: docker
+
 lint:
   name: yamllint
   options:
     config-file: molecule/default/yamllint.yml
+
 platforms:
-  - name: ansible-role-funkwhale-test
+  - name: ansible-role-funkwhale-test-debian
     image: "geerlingguy/docker-debian9-ansible"
     command: ${MOLECULE_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+
+  - name: ansible-role-funkwhale-test-centos
+    image: "centos:7"  # Используйте нужную версию CentOS
+    command: ${MOLECULE_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+
+  - name: ansible-role-funkwhale-test-redos
+    image: "redhat/ubi8"  # Используйте нужную версию RedOS
+    command: ${MOLECULE_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+
 provisioner:
   name: ansible
   lint:
@@ -27,8 +47,10 @@ provisioner:
         - 502  # All tasks should be named
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
+
 scenario:
   name: default
+
 verifier:
   name: testinfra
   lint:
